@@ -1,8 +1,28 @@
-# CS 1632 - Software Quality Assurance
-Fall Semester 2020 - Supplementary Exercise 2
+- [CS 1632 - Software Quality Assurance](#cs-1632---software-quality-assurance)
+  * [Description](#description)
+  * [List of Files](#list-of-files)
+  * [How to Run QuickCheck](#how-to-run-quickcheck)
+  * [What to do](#what-to-do)
+  * [Task 1: Complete IntegerOpsTest](#task-1-complete-integeropstest)
+  * [Task 2: Debug IntegerOps](#task-2-debug-integerops)
+    + [IntegerOpsTest Lessons](#integeropstest-lessons)
+  * [Task 3: Complete StringOpsTest testEquals method](#task-3-complete-stringopstest-testequals-method)
+  * [Task 4: Debug StringOps equals method](#task-4-debug-stringops-equals-method)
+  * [Task 5: Complete ValidHTMLStringGenerator doShrink method](#task-5-complete-validhtmlstringgenerator-doshrink-method)
+  * [Task 6: Debug StringOps isValidHTML method](#task-6-debug-stringops-isvalidhtml-method)
+    + [StringOpsTest Lessons](#stringopstest-lessons)
+  * [Submission](#submission)
+- [Extra Credit](#extra-credit)
+  * [Description](#description-1)
+  * [What to do](#what-to-do-1)
+  * [Extra Credit Submission](#extra-credit-submission)
 
-* DUE: Oct 14, 2020 09:00 AM (Mon/Wed class)
-* DUE: Oct 15, 2020 09:00 AM (Tue/Thu class)
+# CS 1632 - Software Quality Assurance
+Fall Semester 2021 - Supplementary Exercise 3
+
+* DUE: Oct 29 (Friday), 2021 11:59 PM 
+
+**GitHub Classroom Link:** TBD
 
 ## Description
 
@@ -19,10 +39,19 @@ The fact that a property is invariant across the entire set of inputs allows a
 property-based test to be used with any input.  That means, instead of manually
 encoding inputs (say, as part of JUnit test scripts), we can even auto-generate
 some random inputs and test them against our property!  This type of testing
-is called stochastic testing, or random testing.  Stochastic testing is a
-synonym for property-based testing.  And by the way, this broad applicability
-of properties is what made them so useful for model checking and exhaustive
-program state space exploration in Exercise 5.
+is called stochastic testing, or random testing.  Stochastic testing relies
+on property-based tests to check postconditions for a broad range of inputs.  
+
+But stochastic testing is not the only place where property-based testing is
+used.  Property-based testing is also used in the form of invariant assertions
+embedded in source code that do sanity checks during operation.  These
+assertions are often left on when the software is deployed on the client site
+so that the program will shutdown rather than perform some irrecoverable
+disastrous action when a sanity check fails.  These sanity checks have to be
+invariants because they need to pass for all inputs and all system
+configurations that are legal.  Property-based testing is also useful for model
+checking that does exhaustive program state space exploration that we will
+practice on Exercise 5.
 
 For this exercise, we are going to use a JUnit extension library called
 QuickCheck.  Existing JUnit annotations such as @Test, @Before, @After still
@@ -56,7 +85,15 @@ TestRunner.java - Driver class that contains the main method to invoke JUnit on 
     bash runTest.sh
     ```    
 
-Initially, you should see the usual "ALL TESTS PASSED" message.
+Initially, you should see one test already failing:
+```
+testIsValidHTMLTrue(StringOpsTest): Property named 'testIsValidHTMLTrue' failed:
+With arguments: [<i><b><i></i></b><b></b><b><i></i></b><i><b><i></i></b></i><i></i></i>]
+Seeds for reproduction: [4133865354563074415]
+
+!!! - At least one failure, see above.
+```
+You may see a different seed and string because it is randomly generated.
 
 Alternatively, I've created an Eclipse project for you so you can use Eclipse
 to import the existing project and run either IntegerOpsTest or StringOpsTest
@@ -155,7 +192,7 @@ testAdd x='954712259', y='1056406418'
 ```
 
 You can see how QuickCheck is methodically doing the trial-and-error behind the
-scenes, so that you don't have to do it.
+scenes using bisection, so that you don't have to do it.
 
 ## Task 2: Debug IntegerOps
 
@@ -180,7 +217,7 @@ smallest set of defect-triggering values meant to help you debug.
 
 ## Task 3: Complete StringOpsTest testEquals method
 
-Open StringOpsTest.java.  Look at the testEquals method:
+Open StringOpsTest.java.  Let's look at the testEquals method:
 
 ```
 @Property(trials = 1000)
@@ -190,14 +227,37 @@ public void testEquals(String s1, String s2) {
 }
 ```
 
-Fill in the test as before based on the Javadoc comments.  Now, this time, even
-after filling in the test the test passes (and it will pass no matter how many
-times you run it unless you are very lucky).  Does that mean StringOps is
-bug-free?  Absolutely not!  If you see StringOps.equals(String s1, String s2),
-you can see the two strings are compared only up to Integer.min(s1.length(),
-s2.length()).  So if one string is shorter than the other, but the two strings
-are identical up to that point, equals will return true.  That cannot be
-correct behavior.
+Note that now the randomized input parameters **s1** and **s2** are now
+strings.  A string is a form of a byte stream, since each character in the
+string is represented as an ASCII code byte.  So you can consider this to be
+an example of **fuzz testing**, a type of stochastic testing that deals with
+byte streams.
+
+When you do fuzz testing, you need to be extra careful in choosing a good
+distribution of random values, in order to get good test coverage.  Your end
+goal should be to get a good number of random values for each equivalence
+class, since each equivalence class would exercise a different part of the
+code.  For numerical input values, you are likely to hit every equivalence
+class, given enough trials.  Or, you can use the **@InRange** annotation to
+ensure that random values are generated for a certain range of input values
+for a particular equivalence class.
+
+For byte streams, equivalence classes cannot be simply described using a
+"range" like numbers.  For byte streams, equivalence classes are things
+like a string with less 10 characters, a string in all-caps, a string in
+proper XML format, etc.  These cannot be expressed using the @InRange
+annotation.  So we need to create a specialized random value generator for
+each equivalence class.  Otherwise, there is fat chance that you will hit
+upon a properly formatted XML string by dumb luck!
+
+Going back to our testEquals test, fill in the test as before based on the
+Javadoc comments.  Now even after filling in the test the test passes (and
+it will pass no matter how many times you run it unless you are very lucky).
+Does that mean StringOps is bug-free?  Absolutely not!  If you see
+StringOps.equals(String s1, String s2), you can see the two strings are
+compared only up to Integer.min(s1.length(), s2.length()).  So if one string
+is shorter than the other, but the two strings are identical up to that
+point, equals will return true.  That cannot be correct behavior.
 
 Why wasn't the defect caught during the 1000 trials?  That is because the
 defect manifests only when s1 and s2 fit a certain pattern (one is a substring
@@ -271,11 +331,7 @@ Fix equals() based on the feedback given by QuickCheck.
 
 Now it's time to look at the testIsValidHTML method:
 
-Again, fill in according to the Javadoc comment.  But even after filling in the
-test, the test never fails due to the uniform distribution.  The method only
-checks the invariant assertion when "StringOps.isValidHTML(s) returns true"
-according to the comment.  And it is very difficult to randomly hit on a string
-that is valid HTML given the uniform distribution.  So we need a different
+A uniform distribution will not give us valid HTML strings.  So we need a different
 generator just like before, namely the HTMLStringGenerator.
 
 ```
@@ -287,7 +343,7 @@ public void testIsValidHTML(@From(ValidHTMLStringGenerator.class) String s) {
 ```
 
 ValidHtmlStringGenerator generates randomized HTML strings with matching
-<b>...</b> and <i>...</i> tags.  All strings passed by this generator are valid
+**\<b\>...\</b\>** and **\<i\>...\</i\>** tags.  All strings passed by this generator are valid
 HTML so the invariant is that they all return true when
 StringOps.isValidHTML(s) is called.  ValidHtmlStringGenerator is another custom
 generator that is able to rigorously test your program by generating random but
@@ -335,9 +391,120 @@ than generating them separately.
 
 ## Submission
 
-You will create a GitHub repository just for Supplementary Exercise 2.  Add
-your partner as a collaborator so both of you have access.  Make sure you keep
-the repository *PRIVATE* so that nobody else can access your repository.  Once
-you are done modifying code, don't forget to commit and push your changes to
-the repository.  When you are done, submit your repository to GradeScope at the
-"Supplementary Exercise 2 GitHub" link.  
+Each pairwise group will do one submission to GradeScope as usual.  The
+submitting member must use the "View or edit group" link at the top-right
+corner of the assignment page after submission to add his/her partner.  
+
+Submit the repository created by GitHub Classroom for your team to GradeScope
+at the **Supplementary Exercise 3 GitHub** link.  Once you submit, GradeScope
+will run the autograder to grade you and give feedback.  If you get deductions,
+fix your code based on the feedback and resubmit.  Repeat until you don't get
+deductions.
+
+The autograder will test your updated IntegerOpsTest, StringOpsTest, and
+ValidHTMLStringGenerator classes against the original IntegerOps and StringOps
+classes.  Since we are testing against the original classes before debugging,
+we expect all tests to fail, if you have done the work.
+
+# Extra Credit
+
+* DUE: Nov 8 (Monday), 2021 09:30 AM
+
+**GitHub Classroom Link:** TBD
+
+This extra credit is worth 1 point out of 100 points for the entire course.
+Note that you need to get 100/100 on the autograder to get credit.  Partial
+credit will be given under the discretion of the instructor and may not
+necessarily equate to your GradeScope score.
+
+## Description
+
+We are going to go back to the MonkeySim program we profiled on Exercise 4.
+The game is a simulation of the Collatz Conjecture
+(https://en.wikipedia.org/wiki/Collatz_conjecture).  The conjecture states that
+the game will eventually end (that is the first monkey will eventually get the
+banana).  
+
+Now it turns out that the MonkeySim does not end given certain arguments.  So
+have we disproved the conjecture, something that nobody was able to do since
+1937?  Are our names going to be on the cover page of newspapers tomorrow?
+
+Sorry for the downer, but not really.  MonkeySim does not end because it has a
+defect in its implementation.  For certain arguments, the game falls into an
+infinite loop, where a cycle is formed when a group of monkeys pass the banana
+among themselves in a repetitive pattern.
+
+Now, this defect is hard to find using just a handful of test cases you can
+write using JUnit.  So we are going to use stochastic testing to feed MonkeySim
+with a whole bunch of randomized arguments to see which triggers the infinite
+loop.  Complete MonkeySimStochasticTest.java to implement the testMonkeySim
+method which checks the invariant that no matter which argument is given,
+runSimulation never falls into an infinite loop.  Use the @InRange annotation
+to make sure the generated random number for the starting monkey is greater
+than or equal to 1, to make sure we do meaningful tests.
+
+So how do we detect when runSimulation falls into an infinite loop?  Maybe add
+a timeout to the test and say that if the test does not return within 10
+minutes, we consider it to be an infinite loop?  But of course, there is no
+guarantee since runSimulation may just be taking a long time to return.  In
+order to detect infinite loops reliably, you will have to modify MonkeySim to
+be able to detect it when it happens, that is when you detect a cycle forming
+within a group of monkeys.  On detection, throw an InfiniteLoopException.  In
+the testMonkeySim JUnit method, the check can be done by catching the
+InfiniteLoopException and fail()-ing that test run.
+
+## What to do
+
+Create a new GitHub classroom repository by following the link posted above.
+Note that this repository, while similar to Exercise 4, differs in a couple
+of key ways.  It removed the List<Monkey> ml and MonkeyWatcher mw parameters
+from its public methods to give you more freedom to choose your own data
+structure for the group of monkeys and make other implementation changes.
+And you will have to optimize MonkeySim heavily, beyond what you did for
+Exercise 4, in order for the program to be performant enough for stochastic
+testing.  Stochastic testing does hundreds of random trials and each trial
+must be quick for it to end in a reasonable amount of time.
+
+Also, a new **verbose** flag is added that allows MonkeySim to disable system
+output, so that MonkeySim can be further sped up during testing.  You are
+expected to turn off this flag for your stochastic tests as specified in the
+Javadoc comments.
+
+You will have to:
+1. Optimize MonkeySim with the help of VisualVM, while making sure
+   MonkeySimPinningTest continues to pass.
+1. Modify MonkeySim so that it detects infinite loops and throws the
+   InfiniteLoopException when it does, again making sure
+MonkeySimPinningTest still passes.
+1. Complete the testMainStochastic QuickCheck method in
+   MonkeySimStochasticTest.java using the InfiniteLoopException exception.
+1. Run testMainStochastic and let QuickCheck find a monkey number argument
+   that triggers the infinite loop defect.
+1. Create a regular JUnit test case out of that argument named
+   testMainInfiniteLoop that checks for infinite loops.  Of course, this
+test case will always fail with the current implementation.
+
+In order to run the simulation, you can use the following commandline:
+```
+java -cp bin MonkeySim <starting_monkey_number>
+```
+
+In order to run the MonkeySimPinningTest and MonkeySimStochasticTest JUnit
+tests, you can use the following commandline (for Windows):
+```
+java -cp quickcheck-jars/*:bin TestRunner
+```
+Or the commandline (for Mac/Linux):
+```
+java -cp quickcheck-jars/*:bin TestRunner
+```
+
+The expectation is that the pinning tests (that check for existing behavior)
+should pass and the stochastic tests (that check for the infinite loop
+defect), should fail.
+
+## Extra Credit Submission
+
+Modify your GitHub classroom repository to perform the above stochastic
+test.  Please submit the repository to a separate **Supplementary Exercise 3
+Extra Credit** link.
