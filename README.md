@@ -18,11 +18,11 @@
   * [Extra Credit Submission](#extra-credit-submission)
 
 # CS 1632 - Software Quality Assurance
-Summer Semester 2021 - Supplementary Exercise 3
+Fall Semester 2021 - Supplementary Exercise 3
 
-* DUE: July 28 (Wednesday), 2021 6:30 PM 
+* DUE: Oct 29 (Friday), 2021 11:59 PM 
 
-**GitHub Classroom Link:** https://classroom.github.com/g/HXh7JIpY
+**GitHub Classroom Link:** https://classroom.github.com/a/RJUac-Ac
 
 ## Description
 
@@ -70,7 +70,7 @@ StringOpsTest.java - A QuickCheck JUnit class that performs property-based testi
 
 ABCStringGenerator.java - A QuickCheck generator class that generates random strings containing the characters 'A', 'B', and 'C'.
 
-ValidHTMLStringGenerator.java - A QuickCheck generator class that generates random valid HTML strings containing HTML tags such as <b>, </b>, <i>, </i> (**modify**).
+ValidHTMLStringGenerator.java - A QuickCheck generator class that generates random valid HTML strings containing HTML tags such as \<b\>, \</b\>, \<i\>, \</i\> (**modify**).
 
 TestRunner.java - Driver class that contains the main method to invoke JUnit on IntegerOpsTest and StringOpsTest.
 
@@ -408,9 +408,9 @@ we expect all tests to fail, if you have done the work.
 
 # Extra Credit
 
-* DUE: August 7 (Saturday), 2021 11:59 PM 
+* DUE: Nov 8 (Monday), 2021 09:30 AM
 
-**GitHub Classroom Link:** https://classroom.github.com/g/dv2OpU9n
+**GitHub Classroom Link:** https://classroom.github.com/a/PCnHnRxs
 
 This extra credit is worth 1 point out of 100 points for the entire course.
 Note that you need to get 100/100 on the autograder to get credit.  Partial
