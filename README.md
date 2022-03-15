@@ -23,7 +23,7 @@ Spring Semester 2022 - Supplementary Exercise 3
 
 * DUE: Mar 18 (Friday), 2022 11:59 PM 
 
-**GitHub Classroom Link:** TBD
+**GitHub Classroom Link:** https://classroom.github.com/a/6HnyS4AP
 
 ## Description
 
@@ -419,7 +419,7 @@ https://pholser.github.io/junit-quickcheck/site/1.0/usage/complex-types.html
 
 * DUE: Mar 29 (Tuesday), 2022 01:00 PM
 
-**GitHub Classroom Link:** TBD
+**GitHub Classroom Link:** https://classroom.github.com/a/GDRxj9D9
 
 This extra credit is worth 1 point out of 100 points for the entire course.
 Note that you need to get 100/100 on the autograder to get credit.  Partial
