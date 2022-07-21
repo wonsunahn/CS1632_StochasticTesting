@@ -1,4 +1,2 @@
 /bin/
-*.un~
-*.md~
-src/.DS_Store
+/target/

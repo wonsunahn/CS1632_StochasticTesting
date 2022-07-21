@@ -1,29 +1,29 @@
 - [CS 1632 - Software Quality Assurance](#cs-1632---software-quality-assurance)
-  * [Description](#description)
-  * [List of Files](#list-of-files)
-  * [How to Run QuickCheck](#how-to-run-quickcheck)
-  * [What to do](#what-to-do)
-  * [Task 1: Complete IntegerOpsTest](#task-1-complete-integeropstest)
-  * [Task 2: Debug IntegerOps](#task-2-debug-integerops)
-    + [IntegerOpsTest Lessons](#integeropstest-lessons)
-  * [Task 3: Complete StringOpsTest testEquals method](#task-3-complete-stringopstest-testequals-method)
-  * [Task 4: Debug StringOps equals method](#task-4-debug-stringops-equals-method)
-  * [Task 5: Complete ValidHTMLStringGenerator doShrink method](#task-5-complete-validhtmlstringgenerator-doshrink-method)
-  * [Task 6: Debug StringOps isValidHTML method](#task-6-debug-stringops-isvalidhtml-method)
-    + [StringOpsTest Lessons](#stringopstest-lessons)
-  * [Submission](#submission)
-  * [Resources](#resources)
+  - [Description](#description)
+  - [List of Files](#list-of-files)
+  - [How to Run QuickCheck](#how-to-run-quickcheck)
+  - [What to do](#what-to-do)
+  - [Task 1: Complete IntegerOpsTest](#task-1-complete-integeropstest)
+  - [Task 2: Debug IntegerOps](#task-2-debug-integerops)
+    - [IntegerOpsTest Lessons](#integeropstest-lessons)
+  - [Task 3: Complete StringOpsTest testEquals method](#task-3-complete-stringopstest-testequals-method)
+  - [Task 4: Debug StringOps equals method](#task-4-debug-stringops-equals-method)
+  - [Task 5: Complete ValidHTMLStringGenerator doShrink method](#task-5-complete-validhtmlstringgenerator-doshrink-method)
+  - [Task 6: Debug StringOps isValidHTML method](#task-6-debug-stringops-isvalidhtml-method)
+    - [StringOpsTest Lessons](#stringopstest-lessons)
+- [Submission](#submission)
+- [Resources](#resources)
 - [Extra Credit](#extra-credit)
-  * [Description](#description-1)
-  * [What to do](#what-to-do-1)
-  * [Extra Credit Submission](#extra-credit-submission)
+  - [Description](#description-1)
+  - [What to do](#what-to-do-1)
+  - [Extra Credit Submission](#extra-credit-submission)
 
 # CS 1632 - Software Quality Assurance
-Spring Semester 2022 - Supplementary Exercise 3
+Summer Semester 2022 - Supplementary Exercise 2
 
-* DUE: Mar 18 (Friday), 2022 11:59 PM 
+* DUE: July 26 (Tuesday), 2022 11:30 AM 
 
-**GitHub Classroom Link:** https://classroom.github.com/a/6HnyS4AP
+**GitHub Classroom Link:** TBD
 
 ## Description
 
@@ -73,32 +73,42 @@ ABCStringGenerator.java - A QuickCheck generator class that generates random str
 
 ValidHTMLStringGenerator.java - A QuickCheck generator class that generates random valid HTML strings containing HTML tags such as \<b\>, \</b\>, \<i\>, \</i\> (**modify**).
 
-TestRunner.java - Driver class that contains the main method to invoke JUnit on IntegerOpsTest and StringOpsTest.
-
 ## How to Run QuickCheck
 
-1. Running QuickCheck. For Windows do:
-    ```
-    runTest.bat
-    ```
-1. For Mac / Linux do:
-    ```
-    bash runTest.sh
-    ```    
+QuickCheck is an extension to JUnit, and the JUnit classes can be run invoking Maven test as before:
 
-Initially, you should see one test already failing:
 ```
-testIsValidHTMLTrue(StringOpsTest): Property named 'testIsValidHTMLTrue' failed:
-With arguments: [<i><b><i></i></b><b></b><b><i></i></b><i><b><i></i></b></i><i></i></i>]
-Seeds for reproduction: [4133865354563074415]
+mvn test
+```
 
-!!! - At least one failure, see above.
+You should see one failure in testIsValidHTMLTrue as a result:
+
 ```
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running edu.pitt.cs.IntegerOpsTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.055 sec
+Running edu.pitt.cs.StringOpsTest
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.135 sec <<< FAILURE!
+testIsValidHTMLTrue(edu.pitt.cs.StringOpsTest)  Time elapsed: 0.025 sec  <<< FAILURE!
+java.lang.AssertionError: Property named 'testIsValidHTMLTrue' failed:
+With arguments: [<i><i></i><i><b></b></i><b><b></b><i></i><b><b></b><i></i></b></b></i>]
+Seeds for reproduction: [2477381542838746862]
+...
+Results :
+
+(..)ed tests:   testIsValidHTMLTrue(edu.pitt.cs.StringOpsTest): Property named 'testIsValidHTMLTrue' failed:
+
+Tests run: 4, Failures: 1, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+...
+```
+
 You may see a different seed and string because it is randomly generated.
-
-Alternatively, I've created an Eclipse project for you so you can use Eclipse
-to import the existing project and run either IntegerOpsTest or StringOpsTest
-individually as JUnit classes.
 
 ## What to do
 
@@ -207,11 +217,14 @@ y).
 ### IntegerOpsTest Lessons
 
 These are the three things you should have learned through this exercise:
+
 1. A @Property QuickCheck test goes through many randomized trials during a
    single test run where each trial is provided with randomized input values.
+
 1. A property check must be an invariant assertion that is true no matter what
    randomized input values are tested.  For example, things like: the addition
 of two positive integer should result in a positive integer.
+
 1. When a @Property test fails, not only does QuickCheck provide you with the
    set of input values triggering the defect, but it also "shrinks" them to the
 smallest set of defect-triggering values meant to help you debug.
@@ -330,14 +343,14 @@ Fix equals() based on the feedback given by QuickCheck.
 
 ## Task 5: Complete ValidHTMLStringGenerator doShrink method
 
-Now it's time to look at the testIsValidHTML method:
+Now it's time to look at the testIsValidHTMLTrue method:
 
 A uniform distribution will not give us valid HTML strings.  So we need a different
 generator just like before, namely the HTMLStringGenerator.
 
 ```
 @Property(trials = 1000)
-public void testIsValidHTML(@From(ValidHTMLStringGenerator.class) String s) {
+public void testIsValidHTMLTrue(@From(ValidHTMLStringGenerator.class) String s) {
 	// System.out.println("testIsValidHTMLTrue s='" + s + "'");
 	assertTrue(StringOps.isValidHTML(s));
 }
@@ -354,8 +367,8 @@ debugging.  That is because the doShrink method is incomplete as of now.
 Currently, it returns an empty list of candidates meaning that the candidate
 search ends immediately and the original string is not shrunk.
 
-Fill in the doShrink method after reading the comments and comparing against
-ABCStringGenerator.  If you implement this properly, you should see something
+Fill in the doShrink method after reading the comments.  See how I implemented the doShrink method in the 
+ABCStringGenerator above.  If you implement this properly, you should see something
 like this on the console:
 
 ```
@@ -390,7 +403,7 @@ s1, String s2) method, we could have generated the two strings s1 and s2 as
 part of the same object such that we correlate s1 and s2 in some way rather
 than generating them separately.
 
-## Submission
+# Submission
 
 Each pairwise group will do one submission to GradeScope as usual.  The
 submitting member must use the "View or edit group" link at the top-right
@@ -407,7 +420,7 @@ ValidHTMLStringGenerator classes against the original IntegerOps and StringOps
 classes.  Since we are testing against the original classes before debugging,
 we expect all tests to fail, if you have done the work.
 
-## Resources
+# Resources
 
 * Constraining generated values using @InRange and other annotations:  
 https://pholser.github.io/junit-quickcheck/site/1.0/usage/constraining.html#
@@ -417,9 +430,9 @@ https://pholser.github.io/junit-quickcheck/site/1.0/usage/complex-types.html
 
 # Extra Credit
 
-* DUE: Mar 29 (Tuesday), 2022 01:00 PM
+* DUE: Auguset 2 (Tuesday), 2022 11:30 AM
 
-**GitHub Classroom Link:** https://classroom.github.com/a/GDRxj9D9
+**GitHub Classroom Link:** TBD
 
 This extra credit is worth 1 point out of 100 points for the entire course.
 Note that you need to get 100/100 on the autograder to get credit.  Partial
@@ -480,32 +493,41 @@ expected to turn off this flag for your stochastic tests as specified in the
 Javadoc comments.
 
 You will have to:
+
 1. Optimize MonkeySim with the help of VisualVM, while making sure
    MonkeySimPinningTest continues to pass.
+
 1. Modify MonkeySim so that it detects infinite loops and throws the
    InfiniteLoopException when it does, again making sure
 MonkeySimPinningTest still passes.
+
 1. Complete the testMainStochastic QuickCheck method in
    MonkeySimStochasticTest.java using the InfiniteLoopException exception.
+
 1. Run testMainStochastic and let QuickCheck find a monkey number argument
    that triggers the infinite loop defect.
+
 1. Create a regular JUnit test case out of that argument named
    testMainInfiniteLoop that checks for infinite loops.  Of course, this
 test case will always fail with the current implementation.
 
-In order to run the simulation, you can use the following commandline:
+Don't forget to recompile after any source code changes:
+
 ```
-java -cp bin MonkeySim <starting_monkey_number>
+mvn compile
 ```
 
-In order to run the MonkeySimPinningTest and MonkeySimStochasticTest JUnit
-tests, you can use the following commandline (for Windows):
+In order to run the simulation, you can use the following commandline as in the previous exercise:
+
 ```
-java -cp quickcheck-jars/*:bin TestRunner
+java -cp target/classes edu.pitt.cs.MonkeySim <starting-monkey-num>
 ```
-Or the commandline (for Mac/Linux):
+
+In order to run both the MonkeySimPinningTest and MonkeySimStochasticTest JUnit
+tests, you can use Maven:
+
 ```
-java -cp quickcheck-jars/*:bin TestRunner
+mvn test
 ```
 
 The expectation is that the pinning tests (that check for existing behavior)
