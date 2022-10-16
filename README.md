@@ -12,6 +12,7 @@
   - [Task 6: Debug StringOps isValidHTML method](#task-6-debug-stringops-isvalidhtml-method)
     - [StringOpsTest Lessons](#stringopstest-lessons)
 - [Submission](#submission)
+- [Groupwork Plan](#groupwork-plan)
 - [Resources](#resources)
 - [Extra Credit](#extra-credit)
   - [Description](#description-1)
@@ -19,11 +20,11 @@
   - [Extra Credit Submission](#extra-credit-submission)
 
 # CS 1632 - Software Quality Assurance
-Summer Semester 2022 - Supplementary Exercise 2
+Fall Semester 2022 - Supplementary Exercise 2
 
-* DUE: July 26 (Tuesday), 2022 11:30 AM 
+* DUE: October 21 (Friday), 2022 11:59 PM 
 
-**GitHub Classroom Link:** https://classroom.github.com/a/GDJLI79Z
+**GitHub Classroom Link:** TBD
 
 ## Description
 
@@ -420,6 +421,13 @@ ValidHTMLStringGenerator classes against the original IntegerOps and StringOps
 classes.  Since we are testing against the original classes before debugging,
 we expect all tests to fail, if you have done the work.
 
+# Groupwork Plan
+
+I expect each group member to try QuickCheck for him/herself.  I created
+individual repositories for each of you, so write your own tests and debug
+your own code.  After both of you are done, compare your code, discuss any
+differences, and submit.
+
 # Resources
 
 * Constraining generated values using @InRange and other annotations:  
@@ -430,9 +438,9 @@ https://pholser.github.io/junit-quickcheck/site/1.0/usage/complex-types.html
 
 # Extra Credit
 
-* DUE: August 2 (Tuesday), 2022 11:30 AM
+* DUE: November 4 (Friday), 2022 11:59 PM
 
-**GitHub Classroom Link:** https://classroom.github.com/a/rQmilYW7
+**GitHub Classroom Link:** TBD
 
 This extra credit is worth 1 point out of 100 points for the entire course.
 Note that you need to get 100/100 on the autograder to get credit.  Partial
