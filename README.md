@@ -24,7 +24,7 @@ Summer Semester 2023 - Supplementary Exercise 2
 
 * DUE: July 25 (Tuesday), 2023 11:30 AM 
 
-**GitHub Classroom Link:** TBD
+**GitHub Classroom Link:** https://classroom.github.com/a/sOwScnbm
 
 ## Description
 
@@ -243,7 +243,15 @@ testAdd x='954712259', y='1056406418'
 ```
 
 You can see how QuickCheck is methodically doing the trial-and-error behind the
-scenes using bisection, so that you don't have to do it.
+scenes using bisection search, so that you don't have to do it.  The bisection
+search is implemented in a method named doShrink in the IntegralGenerator.java
+class in QuickCheck, which is in charge of shrinking a failing larger integer
+into a list of smaller integers to test on the provided testAdd method:
+
+https://github.com/pholser/junit-quickcheck/blob/master/generators/src/main/java/com/pholser/junit/quickcheck/generator/IntegralGenerator.java
+
+You will have a chance to implement your own doShrink method later to shrink
+String values later in the exercise!
 
 ## Task 2: Debug IntegerOps
 
@@ -496,7 +504,7 @@ https://pholser.github.io/junit-quickcheck/site/1.0/usage/complex-types.html
 
 * DUE: August 8 (Tuesday), 2023 11:30 AM
 
-**GitHub Classroom Link:** TBD
+**GitHub Classroom Link:** https://classroom.github.com/a/DLzQtp7_
 
 This extra credit is worth 1 point out of 100 points for the entire course.
 Note that you need to get 100/100 on the autograder to get credit.  Partial
