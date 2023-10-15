@@ -20,11 +20,11 @@
   - [Extra Credit Submission](#extra-credit-submission)
 
 # CS 1632 - Software Quality Assurance
-Summer Semester 2023 - Supplementary Exercise 2
+Fall Semester 2023 - Supplementary Exercise 2
 
-* DUE: July 25 (Tuesday), 2023 11:30 AM 
+* DUE: October 20 (Friday), 2023 11:59 PM 
 
-**GitHub Classroom Link:** https://classroom.github.com/a/sOwScnbm
+**GitHub Classroom Link:** TBD
 
 ## Description
 
@@ -502,9 +502,9 @@ https://pholser.github.io/junit-quickcheck/site/1.0/usage/complex-types.html
 
 # Extra Credit
 
-* DUE: August 8 (Tuesday), 2023 11:30 AM
+* DUE: November 6 (Monday), 2023 before start of class
 
-**GitHub Classroom Link:** https://classroom.github.com/a/DLzQtp7_
+**GitHub Classroom Link:** TBD
 
 This extra credit is worth 1 point out of 100 points for the entire course.
 Note that you need to get 100/100 on the autograder to get credit.  Partial
