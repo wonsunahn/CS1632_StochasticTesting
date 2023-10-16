@@ -25,10 +25,6 @@ public class IntegerOpsTest {
 	 */
 	@Property(trials = 1000)
 	public void testAdd(int x, int y) {
-		// System.out.println("testAdd x='" + x + "', y='" + y + "'");
-
-		// TODO: Fill in.
-
 		/*
 		 * You may be tempted to put an if statement here, but an if statement in a test
 		 * case is always a code smell. The fact that you are performing different
@@ -42,6 +38,10 @@ public class IntegerOpsTest {
 		 * 
 		 * Please read the above URL to constain x, y values so that they are >= 0.
 		 */
+
+		 // System.out.println("testAdd x='" + x + "', y='" + y + "'");
+
+		 // TODO: Fill in.
 	}
 
 	/**
@@ -56,20 +56,25 @@ public class IntegerOpsTest {
 	 */
 	@Property(trials = 1000)
 	public void testSubtract(int x, int y) {
-		// System.out.println("testSubtract x='" + x + "', y='" + y + "'");
-
-		// TODO: Fill in.
-
 		/*
 		 * In this case, you cannot use the @InRange annotation since the constraint
-		 * involves multiple parameters. There is no pre-defined way to do this in
-		 * QuickCheck as each parameter is generated independently. For this, you will
-		 * need to merge the two x, y parameters to a single parameter which is the
-		 * tuple (x, y) and then write a custom tuple generator that satisfies that
-		 * constraint. But, we will not go that far. Let's just use an if statement,
-		 * fully knowing that there are better ways. We will learn to write custom
-		 * generators soon.
+		 * involves multiple parameters. There is no way to generate (x, y) tuples that
+		 * satisfy x >= y in QuickCheck as each parameter is generated independently.
+		 * For this, you will need to merge the two x, y parameters to a single
+		 * parameter which is the tuple (x, y) and then write a custom tuple generator
+		 * that satisfies that * constraint. But, we will not go that far. Instead, we
+		 * will be satisfied using the assumeThat statement explained in the same page
+		 * as above:
+		 * 
+		 * https://pholser.github.io/junit-quickcheck/site/1.0/usage/constraining.html
+		 * 
+		 * Using assumeThat will not constrain value generation, but will constrain
+		 * values that reach the test case.
 		 */
+
+		 // System.out.println("testSubtract x='" + x + "', y='" + y + "'");
+
+		 // TODO: Fill in.
 	}
 
 }
