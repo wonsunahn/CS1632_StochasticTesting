@@ -20,9 +20,9 @@
   - [Extra Credit Submission](#extra-credit-submission)
 
 # CS 1632 - Software Quality Assurance
-Fall Semester 2023 - Supplementary Exercise 2
+Spring Semester 2024 - Supplementary Exercise 2
 
-* DUE: October 20 (Friday), 2023 11:59 PM 
+* DUE: March 3 (Sunday), 2024 11:59 PM 
 
 **GitHub Classroom Link:** TBD
 
@@ -502,7 +502,7 @@ https://pholser.github.io/junit-quickcheck/site/1.0/usage/complex-types.html
 
 # Extra Credit
 
-* DUE: November 6 (Monday), 2023 before start of class
+* DUE: March 19 (Tuesday), 2024 before start of class
 
 **GitHub Classroom Link:** TBD
 
@@ -566,8 +566,29 @@ Javadoc comments.
 
 You will have to:
 
-1. Optimize MonkeySim with the help of VisualVM, while making sure
-   MonkeySimPinningTest continues to pass.
+1. Create a memory profile after you do all the Exercise 4 optimizations, but
+   before you do any optimizations to reduce memory consumption.  First, insert
+the 30 second sleep at the beginning of the main method like you did for
+Exercise 4 to make profiling easier.  Then launch the application using the followng commandline:
+
+   ```
+   java -cp target/classes edu.pitt.cs.MonkeySim 1000000
+   ```
+
+   On VisualVM, open the running application.  Go to the Profiler tab as in
+Exercise 4, then click on the "Memory settings" beside "CPU settings".  Then
+edit the Profile classes to be "edu.pitt.cs.\*\*" as before.  Then click on the
+"Memory" button beside the "CPU" button to start profiling memory objects.
+When the execution is dne, create a snapshot.  From the snapshot, click on the
+"Save" icon, and chood "Export Objects", then save in PNG format.  Name the
+file "memory-before.png".  You should see 1,000,001 Monkey objects created.
+
+1. Optimize MonkeySim to reduce the number of Monkey objects created, while
+   making sure MonkeySimPinningTest continues to pass.
+
+1. Create a second memory profile "memory-after.png" using the same steps as
+   above.  The new profile should show a much smaller number of Monkeys
+created.
 
 1. Modify MonkeySim so that it detects infinite loops and throws the
    InfiniteLoopException when it does, again making sure
