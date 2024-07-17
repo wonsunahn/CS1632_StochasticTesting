@@ -502,9 +502,9 @@ https://pholser.github.io/junit-quickcheck/site/1.0/usage/complex-types.html
 
 # Extra Credit
 
-* DUE: March 19 (Tuesday), 2024 before start of class
+* DUE: July 30 (Tuesday), 2024 before start of class
 
-**GitHub Classroom Link:** https://classroom.github.com/a/ULIKVkJ4
+**GitHub Classroom Link:** TBD
 
 This extra credit is worth 1 point out of 100 points for the entire course.
 Note that you need to get 100/100 on the autograder to get credit.  Partial
