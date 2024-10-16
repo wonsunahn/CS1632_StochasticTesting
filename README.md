@@ -12,7 +12,6 @@
   - [Task 6: Debug StringOps isValidHTML method](#task-6-debug-stringops-isvalidhtml-method)
     - [StringOpsTest Lessons](#stringopstest-lessons)
 - [Submission](#submission)
-- [Groupwork Plan](#groupwork-plan)
 - [Resources](#resources)
 - [Extra Credit](#extra-credit)
   - [Description](#description-1)
@@ -484,13 +483,6 @@ The autograder will test your updated IntegerOpsTest, StringOpsTest, and
 ValidHTMLStringGenerator classes against the original IntegerOps and StringOps
 classes.  Since we are testing against the original classes before debugging,
 we expect all tests to fail, if you have done the work.
-
-# Groupwork Plan
-
-I expect each group member to try QuickCheck for him/herself.  I created
-individual repositories for each of you, so write your own tests and debug
-your own code.  After both of you are done, compare your code, discuss any
-differences, and submit.
 
 # Resources
 
