@@ -19,9 +19,9 @@
   - [Extra Credit Submission](#extra-credit-submission)
 
 # CS 1632 - Software Quality Assurance
-Spring Semester 2025 - Supplementary Exercise 2
+Summer Semester 2025 - Supplementary Exercise 2
 
-* DUE: March 13 (Thursday), 2025 before start of class
+* DUE: July 22 (Tuesday), 2025 before start of class
 
 **GitHub Classroom Link:** TBD
 
@@ -489,7 +489,7 @@ https://pholser.github.io/junit-quickcheck/site/1.0/usage/complex-types.html
 
 # Extra Credit
 
-* DUE: March 25 (Tuesday), 2025 before start of class
+* DUE: August 6 (Wednesday), 2025 8:30 AM
 
 **GitHub Classroom Link:** TBD
 
