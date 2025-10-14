@@ -19,9 +19,9 @@
   - [Extra Credit Submission](#extra-credit-submission)
 
 # CS 1632 - Software Quality Assurance
-Summer Semester 2025 - Supplementary Exercise 2
+Fall Semester 2025 - Supplementary Exercise 2
 
-* DUE: July 22 (Tuesday), 2025 before start of class
+* DUE: October 22 (Wednesday), 2025 before start of class
 
 **GitHub Classroom Link:** TBD
 
@@ -489,9 +489,9 @@ https://pholser.github.io/junit-quickcheck/site/1.0/usage/complex-types.html
 
 # Extra Credit
 
-* DUE: August 6 (Wednesday), 2025 8:30 AM
+* DUE: November 10 (Wednesday), 2025 before start of class
 
-**GitHub Classroom Link:** TBD
+**GitHub Classroom Link:** https://classroom.github.com/a/q4_vak-1
 
 This extra credit is worth 1 point out of 100 points for the entire course.
 Note that you need to get 100/100 on the autograder to get credit.  Partial
@@ -556,7 +556,7 @@ You will have to:
 1. Create a memory profile after you do all the Exercise 4 optimizations, but
    before you do any optimizations to reduce memory consumption.  First, insert
 the 30 second sleep at the beginning of the main method like you did for
-Exercise 4 to make profiling easier.  Then launch the application using the followng commandline:
+Exercise 4 to make profiling easier.  Then launch the application using the following commandline:
 
    ```
    java -cp target/classes edu.pitt.cs.MonkeySim 1000000
@@ -566,8 +566,8 @@ Exercise 4 to make profiling easier.  Then launch the application using the foll
 Exercise 4, then click on the "Memory settings" beside "CPU settings".  Then
 edit the Profile classes to be "edu.pitt.cs.\*\*" as before.  Then click on the
 "Memory" button beside the "CPU" button to start profiling memory objects.
-When the execution is dne, create a snapshot.  From the snapshot, click on the
-"Save" icon, and chood "Export Objects", then save in PNG format.  Name the
+When the execution is done, create a snapshot.  From the snapshot, click on the
+"Save" icon, and choose "Export Objects", then save in PNG format.  Name the
 file "memory-before.png".  You should see 1,000,001 Monkey objects created.
 
 1. Optimize MonkeySim to reduce the number of Monkey objects created, while
@@ -616,6 +616,9 @@ defect), should fail.
 
 ## Extra Credit Submission
 
-Modify your GitHub classroom repository to perform the above stochastic
-test.  Please submit the repository to a separate **Supplementary Exercise 2
-Extra Credit** link.
+1. Fill in ReportTemplate.docx with the "memory-before.png" and
+   "memory-after.png" files generated above and export to ReportTemplate.pdf.
+
+1. Commit and push all your code and your report to your GitHub classroom repository.
+
+1. Submit the repository to the **Supplementary Exercise 2 Extra Credit** link.
